@@ -51,8 +51,6 @@ public class Item {
         Item other = (Item) obj;
         if (id == null) {
             return other.id == null;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+        } else return id.equals(other.id);
     }
 }
