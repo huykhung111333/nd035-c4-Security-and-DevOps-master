@@ -50,8 +50,7 @@ public class Item {
             return false;
         Item other = (Item) obj;
         if (id == null) {
-            if (other.id != null)
-                return false;
+            return other.id == null;
         } else if (!id.equals(other.id))
             return false;
         return true;

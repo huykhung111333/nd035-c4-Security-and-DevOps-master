@@ -18,7 +18,7 @@ public class UserDetailsServiceImplements implements UserDetailsService {
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImplements.class);
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserDetailsServiceImplements(UserRepository userRepository) {
         this.userRepository = userRepository;
