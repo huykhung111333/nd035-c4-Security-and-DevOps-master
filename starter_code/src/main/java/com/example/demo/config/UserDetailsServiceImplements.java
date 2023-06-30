@@ -20,11 +20,15 @@ public class UserDetailsServiceImplements implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    public UserDetailsServiceImplements(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            log.error("Username {} not found", username);
+            log.error("Username {} not found.", username);
             throw new UsernameNotFoundException(username);
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), emptyList());

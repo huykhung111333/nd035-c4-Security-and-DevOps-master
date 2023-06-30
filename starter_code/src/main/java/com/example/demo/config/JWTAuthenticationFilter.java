@@ -1,10 +1,29 @@
 package com.example.demo.config;
 
+import com.auth0.jwt.JWT;
+import com.example.demo.model.persistence.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+
+import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private static final Logger log = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
-
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -14,8 +33,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
-            com.example.demo.model.persistence.User credentials = new ObjectMapper()
-                    .readValue(req.getInputStream(), com.example.demo.model.persistence.User.class);
+            User credentials = new ObjectMapper()
+                    .readValue(req.getInputStream(), User.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -41,10 +60,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    protected void unsuccessfulAuthentication(javax.servlet.http.HttpServletRequest request,
-                                              javax.servlet.http.HttpServletResponse response,
+    protected void unsuccessfulAuthentication(HttpServletRequest request,
+                                              HttpServletResponse response,
                                               AuthenticationException failed)
-            throws IOException, javax.servlet.ServletException {
+            throws IOException, ServletException {
         super.unsuccessfulAuthentication(request, response, failed);
     }
 

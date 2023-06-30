@@ -15,13 +15,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
 @Table(name = "cart")
-@Getter
-@Setter
 @Data
 public class Cart {
 	
@@ -43,24 +38,18 @@ public class Cart {
 	@Column
 	@JsonProperty
 	private BigDecimal total;
-	
+
 	public void addItem(Item item) {
-		if(items == null) {
-			items = new ArrayList<>();
-		}
 		items.add(item);
-		if(total == null) {
+		if (total == null) {
 			total = new BigDecimal(0);
 		}
 		total = total.add(item.getPrice());
 	}
-	
+
 	public void removeItem(Item item) {
-		if(items == null) {
-			items = new ArrayList<>();
-		}
 		items.remove(item);
-		if(total == null) {
+		if (total == null) {
 			total = new BigDecimal(0);
 		}
 		total = total.subtract(item.getPrice());

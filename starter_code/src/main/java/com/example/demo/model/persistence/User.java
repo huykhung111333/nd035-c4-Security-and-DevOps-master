@@ -13,14 +13,9 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 
 @Entity
 @Table(name = "user")
-@Getter
-@Setter
 @Data
 public class User {
 

@@ -3,8 +3,6 @@ package com.example.demo.controllers;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,15 +23,14 @@ import com.example.demo.model.requests.ModifyCartRequest;
 @RequestMapping("/api/cart")
 public class CartController {
 
-	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 	
 	@Autowired
-	private CartRepository cartRepository;
+	private final CartRepository cartRepository;
 
 	@Autowired
-	private ItemRepository itemRepository;
+	private final ItemRepository itemRepository;
 	@Autowired
 	public CartController(UserRepository userRepository, CartRepository cartRepository, ItemRepository itemRepository) {
 		this.userRepository = userRepository;
